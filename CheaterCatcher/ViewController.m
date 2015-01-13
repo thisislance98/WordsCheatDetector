@@ -10,21 +10,114 @@
 
 @interface ViewController ()
 
+@property (strong,nonatomic) NSArray *cheaterList;
+@property (strong, nonatomic) NSMutableArray *resultList;
+
 @end
 
 @implementation ViewController
 
+@synthesize tableView;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    PFObject *testObject = [PFObject objectWithClassName:@"CheaterList"];
-    testObject[@"foo"] = @"Toliy";
-    [testObject saveInBackground];
+    self.resultList = [[NSMutableArray alloc] init];
+    PFQuery *retrieveCheaters = [PFQuery queryWithClassName:@"CheaterList"];
+    [retrieveCheaters findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        //NSLog(@"%@", objects); //Test for pull
+        if (!error) {
+            self.cheaterList = [[NSArray alloc] initWithArray:objects];
+            [tableView reloadData];
+        }
+    }];
+
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma Table View Methods
+
+- (NSInteger) tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+    return 1;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    //NSLog(@"cheater count: %lu", self.cheaterList.count);//for testing
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return self.resultList.count;
+    }
+    else{
+        return self.cheaterList.count;
+    }
+}
+
+-(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    // -- Cell Creation --
+    static NSString *cellID = @"customCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+   
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+    }
+    
+    //-- Differentiate between search and non --
+    PFObject * tempObj;
+    //Populate cell with resultList if anything in searchBar
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        tempObj = [self.resultList objectAtIndex:indexPath.row];
+    }
+    else{
+        //Else populate cell with cheaterList
+        tempObj = [self.cheaterList objectAtIndex:indexPath.row];
+    }
+    
+    //-- Assign Values --
+    cell.textLabel.text = [tempObj objectForKey:@"foo"];
+    int score = [[tempObj objectForKey:@"rating"] intValue];
+    if (score == 1) {
+        cell.detailTextLabel.text = @"Under Investigation";
+    }
+    else if (score == 2){
+        cell.detailTextLabel.text = @"Possibly a Cheater";
+    }
+    else if (score == 3){
+        cell.detailTextLabel.text = @"Probably a Cheater";
+    }
+    else if (score == 4){
+        cell.detailTextLabel.text = @"Suspected Cheater";
+    }
+    else if (score == 5){
+        cell.detailTextLabel.text = @"Known Cheater";
+    }
+    cell.detailTextLabel.textColor = [UIColor grayColor];
+    NSLog(@"%@%@%@", cell.textLabel.text, [tempObj objectForKey:@"foo"],cell.detailTextLabel.text); //Test for pull
+    return cell;
+}
+
+#pragma Search Results
+
+- (void) filterContentForSearchText: (NSString *) searchText scope:(NSString *) scope{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.foo beginswith[c] %@", searchText];
+    self.resultList = [self.cheaterList filteredArrayUsingPredicate:predicate];
+    /*[self.resultList removeAllObjects];
+    PFObject *tempObj;
+    for (int i = 0; i<self.cheaterList.count; i++) {
+        tempObj = [self.cheaterList objectAtIndex:i];
+        NSString *temp = [tempObj objectForKey:@"foo"];
+        NSString *findingt = searchText;
+        if([temp hasPrefix:findingt]){
+            [self.resultList addObject:[self.cheaterList objectAtIndex:i]];
+        }
+    }*/
+}
+
+- (BOOL) searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
+    [self filterContentForSearchText: searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    return YES;
 }
 
 @end
