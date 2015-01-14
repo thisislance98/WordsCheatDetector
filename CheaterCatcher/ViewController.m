@@ -8,10 +8,14 @@
 
 #import "ViewController.h"
 
+static CGFloat expandedHeight = 100.0;
+static CGFloat contractedHeight = 44.0;
+
 @interface ViewController ()
 
 @property (strong,nonatomic) NSArray *cheaterList;
-@property (strong, nonatomic) NSMutableArray *resultList;
+@property (strong, nonatomic) NSArray *resultList;
+@property (strong, nonatomic) NSIndexPath *expandedIndexPath;
 
 @end
 
@@ -21,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.resultList = [[NSMutableArray alloc] init];
+    self.resultList = [[NSArray alloc] init];
     PFQuery *retrieveCheaters = [PFQuery queryWithClassName:@"CheaterList"];
     [retrieveCheaters findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         //NSLog(@"%@", objects); //Test for pull
@@ -98,21 +102,39 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView beginUpdates]; // tell the table you're about to start making changes
+    
+    // If the index path of the currently expanded cell is the same as the index that
+    // has just been tapped set the expanded index to nil so that there aren't any
+    // expanded cells, otherwise, set the expanded index to the index that has just
+    // been selected.
+    
+    if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
+        self.expandedIndexPath = nil;
+    } else {
+        self.expandedIndexPath = indexPath;
+    }
+    
+    [tableView endUpdates]; // tell the table you're done making your changes
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //If row was clicked expand the height of the cell
+    if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
+        return expandedHeight; // Expanded height
+    }
+    return contractedHeight; // Normal height
+}
+
+
 #pragma Search Results
 
 - (void) filterContentForSearchText: (NSString *) searchText scope:(NSString *) scope{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.foo beginswith[c] %@", searchText];
     self.resultList = [self.cheaterList filteredArrayUsingPredicate:predicate];
-    /*[self.resultList removeAllObjects];
-    PFObject *tempObj;
-    for (int i = 0; i<self.cheaterList.count; i++) {
-        tempObj = [self.cheaterList objectAtIndex:i];
-        NSString *temp = [tempObj objectForKey:@"foo"];
-        NSString *findingt = searchText;
-        if([temp hasPrefix:findingt]){
-            [self.resultList addObject:[self.cheaterList objectAtIndex:i]];
-        }
-    }*/
 }
 
 - (BOOL) searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{

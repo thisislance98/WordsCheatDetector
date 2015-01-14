@@ -6,6 +6,38 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
+        <scene sceneID="YUg-GI-3sh">
+            <objects>
+                <viewController id="RZN-uj-eh5" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cbL-5Y-JeA"/>
+                        <viewControllerLayoutGuide type="bottom" id="IY9-vV-NX7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lcx-Pu-gmE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgQ-vR-Yuk">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Report Cheater" id="ssC-Xd-fuy">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="NOl-ZD-qw1">
+                                            <connections>
+                                                <segue destination="BYZ-38-t0r" kind="presentation" id="OW3-vN-o4p"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aen-0H-TxA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="910" y="85"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -17,15 +49,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="kBG-yE-eJ1">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Cf4-av-axd"/>
-                                </connections>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rNl-LE-dXT">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell" textLabel="CLv-qp-ciP" detailTextLabel="I1S-Br-pd2" style="IBUITableViewCellStyleSubtitle" id="LZO-Sd-a4N">
@@ -55,21 +80,74 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="PRJ-ST-ydd"/>
                                 </connections>
                             </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RDa-99-Ur1">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Cheater List" id="ZUp-1V-5s8">
+                                        <barButtonItem key="rightBarButtonItem" title="Report Cheater" id="vsJ-P5-5zf">
+                                            <connections>
+                                                <segue destination="RZN-uj-eh5" kind="presentation" id="QoI-2z-Cwl"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="kBG-yE-eJ1">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Cf4-av-axd"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="kBG-yE-eJ1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1l0-AL-i66"/>
+                            <constraint firstAttribute="trailing" secondItem="kBG-yE-eJ1" secondAttribute="trailing" id="3kV-iH-zDG"/>
+                            <constraint firstItem="RDa-99-Ur1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6nD-Up-Etv"/>
+                            <constraint firstItem="rNl-LE-dXT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="7cx-NI-ibp"/>
                             <constraint firstItem="rNl-LE-dXT" firstAttribute="top" secondItem="kBG-yE-eJ1" secondAttribute="bottom" id="8WK-pG-HMO"/>
+                            <constraint firstItem="rNl-LE-dXT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="CHo-kq-YB8"/>
+                            <constraint firstItem="kBG-yE-eJ1" firstAttribute="top" secondItem="RDa-99-Ur1" secondAttribute="bottom" id="CVW-dj-4RO"/>
+                            <constraint firstItem="kBG-yE-eJ1" firstAttribute="top" secondItem="RDa-99-Ur1" secondAttribute="bottom" id="Fbh-32-piv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rNl-LE-dXT" secondAttribute="trailing" constant="-16" id="Had-tT-bdu"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rNl-LE-dXT" secondAttribute="bottom" id="Htt-9U-k52"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kBG-yE-eJ1" secondAttribute="trailing" constant="-16" id="M2R-wD-vIw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rNl-LE-dXT" secondAttribute="trailing" constant="-16" id="MgK-C9-nYZ"/>
+                            <constraint firstItem="rNl-LE-dXT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZGJ-7o-1ej"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rNl-LE-dXT" secondAttribute="bottom" id="h9e-Gj-2YW"/>
+                            <constraint firstItem="rNl-LE-dXT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="jmF-tc-0X6"/>
+                            <constraint firstAttribute="trailing" secondItem="RDa-99-Ur1" secondAttribute="trailing" id="jox-Qx-7OV"/>
                             <constraint firstItem="kBG-yE-eJ1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="kXI-sX-Bdx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rNl-LE-dXT" secondAttribute="trailing" constant="-16" id="mx1-OT-BTK"/>
                             <constraint firstItem="kBG-yE-eJ1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="oT1-9i-8cP"/>
+                            <constraint firstItem="rNl-LE-dXT" firstAttribute="top" secondItem="kBG-yE-eJ1" secondAttribute="bottom" id="p2d-ou-NSL"/>
+                            <constraint firstItem="RDa-99-Ur1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pyZ-5y-f43"/>
                             <constraint firstItem="rNl-LE-dXT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="ttX-kF-tUg"/>
+                            <constraint firstAttribute="trailing" secondItem="rNl-LE-dXT" secondAttribute="trailing" id="vJe-iP-0RK"/>
+                            <constraint firstItem="rNl-LE-dXT" firstAttribute="top" secondItem="kBG-yE-eJ1" secondAttribute="bottom" id="wr0-rM-hxV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rNl-LE-dXT" secondAttribute="bottom" id="wzI-oJ-Y6X"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="M2R-wD-vIw"/>
+                                <exclude reference="kXI-sX-Bdx"/>
+                                <exclude reference="oT1-9i-8cP"/>
+                                <exclude reference="7cx-NI-ibp"/>
                                 <exclude reference="8WK-pG-HMO"/>
+                                <exclude reference="CHo-kq-YB8"/>
+                                <exclude reference="Had-tT-bdu"/>
                                 <exclude reference="MgK-C9-nYZ"/>
+                                <exclude reference="ZGJ-7o-1ej"/>
+                                <exclude reference="jmF-tc-0X6"/>
+                                <exclude reference="mx1-OT-BTK"/>
+                                <exclude reference="p2d-ou-NSL"/>
                                 <exclude reference="ttX-kF-tUg"/>
+                                <exclude reference="vJe-iP-0RK"/>
+                                <exclude reference="wr0-rM-hxV"/>
+                                <exclude reference="Htt-9U-k52"/>
+                                <exclude reference="h9e-Gj-2YW"/>
+                                <exclude reference="wzI-oJ-Y6X"/>
                             </mask>
                         </variation>
                     </view>
@@ -89,7 +167,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="194" y="324"/>
+            <point key="canvasLocation" x="194" y="328"/>
         </scene>
     </scenes>
 </document>
