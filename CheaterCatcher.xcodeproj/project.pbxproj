@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402E19801A66F87C00A73B2C /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 402E197F1A66F87C00A73B2C /* CustomCell.m */; };
+		402E19851A671C8100A73B2C /* WWFtwo.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19821A671C8100A73B2C /* WWFtwo.png */; };
+		402E19861A671C8100A73B2C /* WWFthree.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19831A671C8100A73B2C /* WWFthree.png */; };
+		402E19871A671C8100A73B2C /* WWFone.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19841A671C8100A73B2C /* WWFone.png */; };
 		40A3D75A1A64F49100B8F530 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3D7591A64F49100B8F530 /* main.m */; };
 		40A3D75D1A64F49100B8F530 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3D75C1A64F49100B8F530 /* AppDelegate.m */; };
 		40A3D7601A64F49100B8F530 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3D75F1A64F49100B8F530 /* ViewController.m */; };
@@ -43,6 +47,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		402E197E1A66F87C00A73B2C /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		402E197F1A66F87C00A73B2C /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		402E19821A671C8100A73B2C /* WWFtwo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWFtwo.png; sourceTree = "<group>"; };
+		402E19831A671C8100A73B2C /* WWFthree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWFthree.png; sourceTree = "<group>"; };
+		402E19841A671C8100A73B2C /* WWFone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWFone.png; sourceTree = "<group>"; };
 		40A3D7541A64F49100B8F530 /* CheaterCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheaterCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A3D7581A64F49100B8F530 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40A3D7591A64F49100B8F530 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -108,9 +117,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		402E19811A671C2F00A73B2C /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				402E19821A671C8100A73B2C /* WWFtwo.png */,
+				402E19831A671C8100A73B2C /* WWFthree.png */,
+				402E19841A671C8100A73B2C /* WWFone.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		40A3D74B1A64F49100B8F530 = {
 			isa = PBXGroup;
 			children = (
+				402E19811A671C2F00A73B2C /* Images */,
 				40A3D77D1A64FA7000B8F530 /* Frameworks */,
 				40A3D7561A64F49100B8F530 /* CheaterCatcher */,
 				40A3D7701A64F49200B8F530 /* CheaterCatcherTests */,
@@ -132,6 +152,8 @@
 			children = (
 				40A3D75B1A64F49100B8F530 /* AppDelegate.h */,
 				40A3D75C1A64F49100B8F530 /* AppDelegate.m */,
+				402E197E1A66F87C00A73B2C /* CustomCell.h */,
+				402E197F1A66F87C00A73B2C /* CustomCell.m */,
 				40A3D75E1A64F49100B8F530 /* ViewController.h */,
 				40A3D75F1A64F49100B8F530 /* ViewController.m */,
 				40A3D7611A64F49200B8F530 /* Main.storyboard */,
@@ -271,9 +293,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				402E19861A671C8100A73B2C /* WWFthree.png in Resources */,
 				40A3D7631A64F49200B8F530 /* Main.storyboard in Resources */,
 				40A3D7681A64F49200B8F530 /* LaunchScreen.xib in Resources */,
+				402E19871A671C8100A73B2C /* WWFone.png in Resources */,
 				40A3D7651A64F49200B8F530 /* Images.xcassets in Resources */,
+				402E19851A671C8100A73B2C /* WWFtwo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +318,7 @@
 			files = (
 				40A3D7601A64F49100B8F530 /* ViewController.m in Sources */,
 				40A3D75D1A64F49100B8F530 /* AppDelegate.m in Sources */,
+				402E19801A66F87C00A73B2C /* CustomCell.m in Sources */,
 				40A3D75A1A64F49100B8F530 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

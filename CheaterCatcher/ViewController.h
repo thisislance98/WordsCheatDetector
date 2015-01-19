@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate>
+@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+    UIImagePickerController *picker;
+    UIImage *image;
+}
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)getPhoto:(id)sender;
 @end
 

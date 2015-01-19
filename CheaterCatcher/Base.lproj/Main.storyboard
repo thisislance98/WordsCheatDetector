@@ -17,27 +17,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgQ-vR-Yuk">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Report Cheater" id="ssC-Xd-fuy">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="NOl-ZD-qw1">
-                                            <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="OW3-vN-o4p"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VA5-D7-Mol">
+                                <rect key="frame" x="16" y="20" width="46" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="shb-BC-DmC"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aen-0H-TxA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="910" y="85"/>
+            <point key="canvasLocation" x="3471" y="121"/>
         </scene>
-        <!--View Controller-->
+        <!--Cheater List-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -49,30 +44,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rNl-LE-dXT">
-                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rNl-LE-dXT">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell" textLabel="CLv-qp-ciP" detailTextLabel="I1S-Br-pd2" style="IBUITableViewCellStyleSubtitle" id="LZO-Sd-a4N">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCell" rowHeight="100" id="LZO-Sd-a4N" customClass="CustomCell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LZO-Sd-a4N" id="VRW-lz-gJa">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CLv-qp-ciP">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUr-M2-dpt">
+                                                    <rect key="frame" x="8" y="8" width="296" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I1S-Br-pd2">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqz-8r-MKU">
+                                                    <rect key="frame" x="8" y="25" width="296" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.55290237289999999" green="0.68151648760000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="anK-P2-jB0">
+                                                    <rect key="frame" x="196" y="16" width="50" height="67"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sSK-j1-qLQ">
+                                                    <rect key="frame" x="254" y="16" width="50" height="67"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S78-Ct-uwt">
+                                                    <rect key="frame" x="312" y="35" width="53" height="30"/>
+                                                    <state key="normal" title="Upload">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="getPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8iU-pm-hr4"/>
+                                                        <action selector="uploadPhoto:" destination="LZO-Sd-a4N" eventType="touchUpInside" id="Gl3-8z-AE9"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MvP-x4-62u">
+                                                    <rect key="frame" x="138" y="16" width="50" height="67"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="customAddEvidenceButton" destination="S78-Ct-uwt" id="0qu-GY-3lv"/>
+                                            <outlet property="customName" destination="YUr-M2-dpt" id="pMU-oB-4fK"/>
+                                            <outlet property="customPicOne" destination="MvP-x4-62u" id="JyG-8E-n8e"/>
+                                            <outlet property="customPicThree" destination="sSK-j1-qLQ" id="hLr-IW-ccD"/>
+                                            <outlet property="customPicTwo" destination="anK-P2-jB0" id="sNa-2Y-JBg"/>
+                                            <outlet property="customRating" destination="kqz-8r-MKU" id="coO-2P-l66"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -82,18 +104,9 @@
                             </tableView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RDa-99-Ur1">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Cheater List" id="ZUp-1V-5s8">
-                                        <barButtonItem key="rightBarButtonItem" title="Report Cheater" id="vsJ-P5-5zf">
-                                            <connections>
-                                                <segue destination="RZN-uj-eh5" kind="presentation" id="QoI-2z-Cwl"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
                             </navigationBar>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="kBG-yE-eJ1">
-                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Cf4-av-axd"/>
@@ -103,6 +116,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kBG-yE-eJ1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1l0-AL-i66"/>
+                            <constraint firstItem="kBG-yE-eJ1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="244-tm-HUs"/>
                             <constraint firstAttribute="trailing" secondItem="kBG-yE-eJ1" secondAttribute="trailing" id="3kV-iH-zDG"/>
                             <constraint firstItem="RDa-99-Ur1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6nD-Up-Etv"/>
                             <constraint firstItem="rNl-LE-dXT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="7cx-NI-ibp"/>
@@ -130,6 +144,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="CVW-dj-4RO"/>
+                                <exclude reference="Fbh-32-piv"/>
                                 <exclude reference="M2R-wD-vIw"/>
                                 <exclude reference="kXI-sX-Bdx"/>
                                 <exclude reference="oT1-9i-8cP"/>
@@ -151,6 +167,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="Cheater List" id="vf2-tL-Enr"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="RHQ-tU-EjS" id="aCL-B5-gpU"/>
                         <outlet property="tableView" destination="rNl-LE-dXT" id="kaL-sd-f47"/>
@@ -167,7 +184,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="194" y="328"/>
+            <point key="canvasLocation" x="1818" y="328"/>
         </scene>
     </scenes>
 </document>

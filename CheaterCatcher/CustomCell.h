@@ -2,15 +2,22 @@
 //  CustomCell.h
 //  CheaterCatcher
 //
-//  Created by Toliy on 1/13/15.
+//  Created by Toliy on 1/14/15.
 //  Copyright (c) 2015 AKSoft. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface CustomCell : UITableViewCell
+@interface CustomCell : UITableViewCell 
 
-@property (strong, nonatomic) IBOutlet UILabel *cheaterRatingLabel;
-@property (strong, nonatomic) IBOutlet UILabel *cheaterNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *customName;
+@property (weak, nonatomic) IBOutlet UILabel *customRating;
+
+@property (weak, nonatomic) IBOutlet UIImageView *customPicOne;
+@property (weak, nonatomic) IBOutlet UIImageView *customPicTwo;
+@property (weak, nonatomic) IBOutlet UIImageView *customPicThree;
+
+@property (weak, nonatomic) IBOutlet UIButton *customAddEvidenceButton;
+
 
 @end
