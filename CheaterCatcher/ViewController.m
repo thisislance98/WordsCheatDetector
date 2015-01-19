@@ -74,7 +74,7 @@ int flag = 0;
     }
 }
 
-//TODO: REFACTOR!!!!
+#warning TODO: REFACTOR
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     // -- Cell Creation --
     static NSString *cellID = @"customCell";
@@ -171,12 +171,24 @@ int flag = 0;
     // expanded cells, otherwise, set the expanded index to the index that has just
     // been selected.
     
+    //Get the cell in question
+    CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
+
     if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
         self.expandedIndexPath = nil;
+        //Hiding extra pictures
+        customCell.customRating.textColor = [UIColor grayColor];
+        customCell.customPicOne.image = nil;
+        customCell.customPicTwo.image = nil;
+        customCell.customPicThree.image = nil;
+        
+        //Hiding buttons
+        customCell.customAddEvidenceButton.hidden = true;
+        
+    #warning TODO: Add in animation for leaving cell?
+        
     } else {
         self.expandedIndexPath = indexPath;
-        CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
-        
         //Expanded Cell Assigning values - Testing fade, once array of pics is up on parse we can change this to a loop for the images
         if (self.expandedIndexPath.row == indexPath.row && flag == 1) {
             NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"WWFthree" ofType:@"png"];
@@ -261,7 +273,7 @@ int flag = 0;
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    //TODO: Get the local array, add the image to it and push to parse
+    #warning TODO: Get the local array, add the image to it and push to parse
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
