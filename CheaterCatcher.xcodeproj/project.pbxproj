@@ -11,6 +11,8 @@
 		402E19851A671C8100A73B2C /* WWFtwo.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19821A671C8100A73B2C /* WWFtwo.png */; };
 		402E19861A671C8100A73B2C /* WWFthree.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19831A671C8100A73B2C /* WWFthree.png */; };
 		402E19871A671C8100A73B2C /* WWFone.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19841A671C8100A73B2C /* WWFone.png */; };
+		40522EB91A6DBE2B0044405A /* addButtonPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 40522EB71A6DBE2B0044405A /* addButtonPic.png */; };
+		40522EBA1A6DBE2B0044405A /* addButtonPic2.ico in Resources */ = {isa = PBXBuildFile; fileRef = 40522EB81A6DBE2B0044405A /* addButtonPic2.ico */; };
 		40A3D75A1A64F49100B8F530 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3D7591A64F49100B8F530 /* main.m */; };
 		40A3D75D1A64F49100B8F530 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3D75C1A64F49100B8F530 /* AppDelegate.m */; };
 		40A3D7601A64F49100B8F530 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40A3D75F1A64F49100B8F530 /* ViewController.m */; };
@@ -52,6 +54,8 @@
 		402E19821A671C8100A73B2C /* WWFtwo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWFtwo.png; sourceTree = "<group>"; };
 		402E19831A671C8100A73B2C /* WWFthree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWFthree.png; sourceTree = "<group>"; };
 		402E19841A671C8100A73B2C /* WWFone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWFone.png; sourceTree = "<group>"; };
+		40522EB71A6DBE2B0044405A /* addButtonPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addButtonPic.png; sourceTree = "<group>"; };
+		40522EB81A6DBE2B0044405A /* addButtonPic2.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = addButtonPic2.ico; sourceTree = "<group>"; };
 		40A3D7541A64F49100B8F530 /* CheaterCatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheaterCatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A3D7581A64F49100B8F530 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		40A3D7591A64F49100B8F530 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 		402E19811A671C2F00A73B2C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				40522EB71A6DBE2B0044405A /* addButtonPic.png */,
+				40522EB81A6DBE2B0044405A /* addButtonPic2.ico */,
 				402E19821A671C8100A73B2C /* WWFtwo.png */,
 				402E19831A671C8100A73B2C /* WWFthree.png */,
 				402E19841A671C8100A73B2C /* WWFone.png */,
@@ -295,8 +301,10 @@
 			files = (
 				402E19861A671C8100A73B2C /* WWFthree.png in Resources */,
 				40A3D7631A64F49200B8F530 /* Main.storyboard in Resources */,
+				40522EB91A6DBE2B0044405A /* addButtonPic.png in Resources */,
 				40A3D7681A64F49200B8F530 /* LaunchScreen.xib in Resources */,
 				402E19871A671C8100A73B2C /* WWFone.png in Resources */,
+				40522EBA1A6DBE2B0044405A /* addButtonPic2.ico in Resources */,
 				40A3D7651A64F49200B8F530 /* Images.xcassets in Resources */,
 				402E19851A671C8100A73B2C /* WWFtwo.png in Resources */,
 			);

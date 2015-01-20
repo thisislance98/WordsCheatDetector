@@ -26,6 +26,7 @@ int flag = 0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //Create arrays and populate the first list
     self.resultList = [[NSArray alloc] init];
     PFQuery *retrieveCheaters = [PFQuery queryWithClassName:@"CheaterList"];
     [retrieveCheaters findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -75,6 +76,44 @@ int flag = 0;
 }
 
 #warning TODO: REFACTOR
+- (void)addExtraContentToCell:(CustomCell *)customCell indexPath:(NSIndexPath *)indexPath {
+    if (self.expandedIndexPath.row == indexPath.row && flag == 1) {
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"WWFthree" ofType:@"png"];
+        UIImage *myImageObj = [[UIImage alloc] initWithContentsOfFile:imagePath];
+        NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"WWFtwo" ofType:@"png"];
+        UIImage *myImageObj2 = [[UIImage alloc] initWithContentsOfFile:imagePath2];
+        NSString *imagePath3 = [[NSBundle mainBundle] pathForResource:@"WWFone" ofType:@"png"];
+        UIImage *myImageObj3 = [[UIImage alloc] initWithContentsOfFile:imagePath3];
+        
+        [UIView transitionWithView:customCell.customPicOne
+                          duration:0.8f
+                           options:UIViewAnimationOptionTransitionFlipFromBottom
+                        animations:^{
+                            customCell.customPicOne.image = myImageObj;
+                        } completion:nil];
+        [UIView transitionWithView:customCell.customPicTwo
+                          duration:0.8f
+                           options:UIViewAnimationOptionTransitionFlipFromBottom
+                        animations:^{
+                            customCell.customPicTwo.image = myImageObj2;
+                        } completion:nil];
+        [UIView transitionWithView:customCell.customPicThree
+                          duration:0.8f
+                           options:UIViewAnimationOptionTransitionFlipFromBottom
+                        animations:^{
+                            customCell.customPicThree.image = myImageObj3;
+                        } completion:nil];
+        
+        //Making button visible
+        customCell.customAddEvidenceButton.alpha = 0;
+        customCell.customAddEvidenceButton.hidden = false;
+        [UIView animateWithDuration:1.0 animations:^{
+            customCell.customAddEvidenceButton.alpha = 1;
+        }];
+        
+    }
+}
+
 -(UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     // -- Cell Creation --
     static NSString *cellID = @"customCell";
@@ -123,41 +162,7 @@ int flag = 0;
     //Hiding buttons
     customCell.customAddEvidenceButton.hidden = true;
     
-    if (self.expandedIndexPath.row == indexPath.row && flag == 1) {
-        NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"WWFthree" ofType:@"png"];
-        UIImage *myImageObj = [[UIImage alloc] initWithContentsOfFile:imagePath];
-        NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"WWFtwo" ofType:@"png"];
-        UIImage *myImageObj2 = [[UIImage alloc] initWithContentsOfFile:imagePath2];
-        NSString *imagePath3 = [[NSBundle mainBundle] pathForResource:@"WWFone" ofType:@"png"];
-        UIImage *myImageObj3 = [[UIImage alloc] initWithContentsOfFile:imagePath3];
-        
-        [UIView transitionWithView:customCell.customPicOne
-                          duration:0.8f
-                           options:UIViewAnimationOptionTransitionFlipFromBottom
-                        animations:^{
-                            customCell.customPicOne.image = myImageObj;
-                        } completion:nil];
-        [UIView transitionWithView:customCell.customPicTwo
-                          duration:0.8f
-                           options:UIViewAnimationOptionTransitionFlipFromBottom
-                        animations:^{
-                            customCell.customPicTwo.image = myImageObj2;
-                        } completion:nil];
-        [UIView transitionWithView:customCell.customPicThree
-                          duration:0.8f
-                           options:UIViewAnimationOptionTransitionFlipFromBottom
-                        animations:^{
-                            customCell.customPicThree.image = myImageObj3;
-                        } completion:nil];
-        
-        //Making button visible
-        customCell.customAddEvidenceButton.alpha = 0;
-        customCell.customAddEvidenceButton.hidden = false;
-        [UIView animateWithDuration:1.0 animations:^{
-            customCell.customAddEvidenceButton.alpha = 1;
-        }];
-
-    }
+    [self addExtraContentToCell:customCell indexPath:indexPath];
    // NSLog(@"%@%@%@", customCell.customName.text, [tempObj objectForKey:@"foo"],customCell.customRating.text); //Test for pull
     return customCell;
 }
@@ -175,70 +180,33 @@ int flag = 0;
     CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
 
     if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
+        #warning TODO: Add in animation for leaving cell?
         self.expandedIndexPath = nil;
         //Hiding extra pictures
         customCell.customRating.textColor = [UIColor grayColor];
-        customCell.customPicOne.image = nil;
-        customCell.customPicTwo.image = nil;
-        customCell.customPicThree.image = nil;
-        
-        //Hiding buttons
-        customCell.customAddEvidenceButton.hidden = true;
-        
-    #warning TODO: Add in animation for leaving cell?
-        
+        [self hideContentFromCell:indexPath];
     } else {
         self.expandedIndexPath = indexPath;
         //Expanded Cell Assigning values - Testing fade, once array of pics is up on parse we can change this to a loop for the images
-        if (self.expandedIndexPath.row == indexPath.row && flag == 1) {
-            NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"WWFthree" ofType:@"png"];
-            UIImage *myImageObj = [[UIImage alloc] initWithContentsOfFile:imagePath];
-            NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"WWFtwo" ofType:@"png"];
-            UIImage *myImageObj2 = [[UIImage alloc] initWithContentsOfFile:imagePath2];
-            NSString *imagePath3 = [[NSBundle mainBundle] pathForResource:@"WWFone" ofType:@"png"];
-            UIImage *myImageObj3 = [[UIImage alloc] initWithContentsOfFile:imagePath3];
-            
-            [UIView transitionWithView:customCell.customPicOne
-                              duration:0.8f
-                               options:UIViewAnimationOptionTransitionFlipFromBottom
-                            animations:^{
-                                customCell.customPicOne.image = myImageObj;
-                            } completion:nil];
-            [UIView transitionWithView:customCell.customPicTwo
-                              duration:0.8f
-                               options:UIViewAnimationOptionTransitionFlipFromBottom
-                            animations:^{
-                                customCell.customPicTwo.image = myImageObj2;
-                            } completion:nil];
-            [UIView transitionWithView:customCell.customPicThree
-                              duration:0.8f
-                               options:UIViewAnimationOptionTransitionFlipFromBottom
-                            animations:^{
-                                customCell.customPicThree.image = myImageObj3;
-                            } completion:nil];
-            
-            //Making button visible
-            customCell.customAddEvidenceButton.alpha = 0;
-            customCell.customAddEvidenceButton.hidden = false;
-            [UIView animateWithDuration:0.8 animations:^{
-                customCell.customAddEvidenceButton.alpha = 1;
-            }];
-        }
+        [self addExtraContentToCell:customCell indexPath:indexPath];
         
     }
     
     [self.tableView endUpdates]; // tell the table you're done making your changes
 }
 
--(void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+- (void)hideContentFromCell:(NSIndexPath *)indexPath {
     CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
     customCell.customPicOne.image = nil;
     customCell.customPicTwo.image = nil;
     customCell.customPicThree.image = nil;
-    
     //Hiding buttons
     customCell.customAddEvidenceButton.hidden = true;
+}
+
+-(void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self hideContentFromCell:indexPath];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
