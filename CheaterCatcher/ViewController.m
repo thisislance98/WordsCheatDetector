@@ -171,8 +171,10 @@ int flag = 0;
         customCell.customRating.text = @"Known Cheater";
     }
     
+    NSString *objectID = [tempObj objectId];
+    
     [self addExtraContentToCell:customCell indexPath:indexPath];
-   // NSLog(@"%@%@%@", customCell.customName.text, [tempObj objectForKey:@"foo"],customCell.customRating.text); //Test for pull
+    NSLog(@"Loading Cell: %@ %@", customCell.customName.text, customCell.customRating.text); //Test for pull
     return customCell;
 }
 
@@ -304,16 +306,28 @@ int flag = 0;
         // Get name
         NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
         NSString *tagIndex;
+        PFObject *thisObjectPF;
         if (selectedIndexPath == nil) {
             tagIndex = self.searchDisplayController.searchBar.text;
         }
         else{
             CustomCell *customCell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
             tagIndex = customCell.customName.text;
+            if ([self.searchDisplayController.searchBar.text isEqualToString:@""]) {
+                thisObjectPF = [self.cheaterList objectAtIndex:selectedIndexPath.row];
+            }
+            else if (self.resultList.count != 0){
+                thisObjectPF = [self.resultList objectAtIndex:selectedIndexPath.row];
+            }
+            else{
+                thisObjectPF = nil;
+            }
         }
         
-        // Set the selected button in the new view
+        // Set the selected player to send
         [vc setSelectedPlayerName:tagIndex];
+        [vc setSelectedPlayerObject:thisObjectPF];
+        
     }
 }
 

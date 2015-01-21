@@ -7,16 +7,15 @@
 //
 
 #import "ReportPlayerController.h"
+#import "ViewController.h"
 
 @interface ReportPlayerController ()
-
-@property (strong, nonatomic) NSArray *commentsFinished;
 
 @end
 
 @implementation ReportPlayerController
 
-@synthesize SelectedPlayerName;
+@synthesize SelectedPlayerName, SelectedPlayerObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -81,22 +80,89 @@
 }
 
 - (IBAction)reportDone:(id)sender {
+    int *isNew = 0;
+    //If player exists in parse database and is only being updated
+    if (SelectedPlayerObject != nil) {
+        PFQuery *query = [PFQuery queryWithClassName:@"CheaterList"];
+        
+        // Retrieve the object by id
+        [query getObjectInBackgroundWithId:[SelectedPlayerObject objectId] block:^(PFObject *gameScore, NSError *error) {
+            
+            // Now let's update it with some new data. In this case, only cheatMode and score
+            // will get sent to the cloud. playerName hasn't changed.
+            [gameScore incrementKey:@"rating"];
+            [gameScore saveInBackground];
+        }];
+        isNew = 0;
+    }
+    else{ //Object is nil and this is a new entry for parse
+        PFObject *gameScore = [PFObject objectWithClassName:@"CheaterList"];
+        gameScore[@"foo"] = SelectedPlayerName;
+        gameScore[@"rating"] = @1;
+        [gameScore saveInBackground];
+        isNew = 1;
+    }
+    
+    //Saving Evidence
+    PFObject *userPhoto = [PFObject objectWithClassName:[SelectedPlayerObject objectId]];
+    //If theres an image save get all image data you need
     if (self.displayScreenShot.image != nil) {
-        UIImage *image = self.displayScreenShot.image;
-        // Resize image
-        UIGraphicsBeginImageContext(CGSizeMake(640, 960));
-        [self.displayScreenShot.image drawInRect: CGRectMake(0, 0, 640, 960)];
-        UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+
+        UIImage *myImageObj = self.displayScreenShot.image;
+        NSData *imageData = UIImagePNGRepresentation(myImageObj);
+        PFFile *imageFile = [PFFile fileWithName:@"image.png" data:imageData];
         
-        NSData *imageData = UIImageJPEGRepresentation(self.displayScreenShot.image, 0.05f);
-        //[self uploadImage:imageData];
-    #warning TODO: CREATE UPLOAD IMAGE METHOD
+        userPhoto[@"imageFile"] = imageFile;
     }
-    if (![self.attachComments.text isEqualToString:@""]) {
-        self.commentsFinished = self.attachComments.text;
-        
-    }
+    //Set omments value
+    userPhoto[@"imageName"] = self.attachComments.text;
+    //Send data to Parse
+    [userPhoto saveInBackground];
+
+    
+    //Going back to list of cheaters
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void) uploadImage:(NSData *)imageData{
+    PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
+    
+    //HUD creation here (see example for code)
+    
+    // Save PFFile
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            // Hide old HUD, show completed HUD (see example for code)
+            
+            // Create a PFObject around a PFFile and associate it with the current user
+            PFObject *userPhoto = [PFObject objectWithClassName:@"Test1"];
+            [userPhoto setObject:imageFile forKey:@"imageFile"];
+            
+            // Set the access control list to current user for security purposes
+            userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            
+            PFUser *user = [PFUser currentUser];
+            [userPhoto setObject:user forKey:@"user"];
+            
+            [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    //[self refresh:nil];
+                }
+                else{
+                    // Log details of the failure
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }
+        else{
+            //[HUD hide:YES];
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    } progressBlock:^(int percentDone) {
+        // Update your progress spinner here. percentDone will be between 0 and 100.
+        //HUD.progress = (float)percentDone/100;
+    }];
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo

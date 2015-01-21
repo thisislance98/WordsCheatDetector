@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 @interface ReportPlayerController : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
     UIImagePickerController *picker;
     NSString *SelectedPlayerName;
+    PFObject *SelectedPlayerObject;
 }
 @property (strong, nonatomic) NSString *SelectedPlayerName;
+@property (strong, nonatomic) PFObject *SelectedPlayerObject;
 
 @property (strong, nonatomic) IBOutlet UIImageView *displayScreenShot;
 @property (strong, nonatomic) IBOutlet UITextView *attachComments;

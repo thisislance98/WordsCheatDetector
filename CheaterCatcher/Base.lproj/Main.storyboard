@@ -209,7 +209,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NtM-ck-CeB">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NtM-ck-CeB">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPX-8N-Rsc">
@@ -246,7 +246,11 @@
                                                 <segue destination="BYZ-38-t0r" kind="presentation" id="kx1-dx-9yf"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Report" id="swL-EQ-shb"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Report" id="swL-EQ-shb">
+                                            <connections>
+                                                <action selector="reportDone:" destination="MBy-lX-6oj" id="6eJ-VK-cdC"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -265,11 +269,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Report Player" id="ny5-MB-XpN">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="wa4-PE-Lc6"/>
-                        <barButtonItem key="rightBarButtonItem" title="Report" id="FxG-O7-Uqt">
-                            <connections>
-                                <action selector="reportDone:" destination="MBy-lX-6oj" id="h5l-pT-bFt"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Report" id="FxG-O7-Uqt"/>
                     </navigationItem>
                     <connections>
                         <outlet property="attachComments" destination="tbg-r8-ivh" id="2jj-xb-da5"/>
