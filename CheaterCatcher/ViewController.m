@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "CustomCell.h"
+#import "ReportPlayerController.h"
 
-static CGFloat expandedHeight = 100.0;
+static CGFloat expandedHeight = 135.0;
 static CGFloat contractedHeight = 44.0;
 int flag = 0;
 @interface ViewController ()
@@ -32,6 +33,7 @@ int flag = 0;
     [retrieveCheaters findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.cheaterList = [[NSArray alloc] initWithArray:objects];
+            flag = 0;
             [tableView reloadData];
         }
     }];
@@ -52,19 +54,9 @@ int flag = 0;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (![self.searchDisplayController.searchBar.text isEqualToString:@""]) {
         if (self.resultList.count == 0) {
-            UITableView *tableView = self.searchDisplayController.searchResultsTableView;
-            for( UIView *subview in tableView.subviews ) {
-                if( [subview class] == [UILabel class] ) {
-                    UILabel *lbl = (UILabel*)subview; // sv changed to subview.
-                    //Change text of no results
-                    NSString *str = [self.searchDisplayController.searchBar.text stringByAppendingString:@" is Not a Known Cheater"];
-                    lbl.text = str;
-                    //Change color of no results
-                    lbl.textColor = [UIColor blackColor];
-                }
-            }
+            return 1;
         }
         //User typed something in the searchbar so look in the resultList
         return self.resultList.count;
@@ -111,6 +103,12 @@ int flag = 0;
             customCell.customAddEvidenceButton.alpha = 1;
         }];
         
+        customCell.customSeeEvidenceButton.alpha = 0;
+        customCell.customSeeEvidenceButton.hidden = false;
+        [UIView animateWithDuration:1.0 animations:^{
+            customCell.customSeeEvidenceButton.alpha = 1;
+        }];
+        
     }
 }
 
@@ -123,11 +121,30 @@ int flag = 0;
         customCell = [[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
+    //Hiding extra pictures
+    customCell.customRating.textColor = [UIColor grayColor];
+    customCell.customPicOne.image = nil;
+    customCell.customPicTwo.image = nil;
+    customCell.customPicThree.image = nil;
+    
+    //Hiding buttons
+    customCell.customAddEvidenceButton.hidden = true;
+    customCell.customSeeEvidenceButton.hidden = true;
+
     //-- Differentiate between search and non search --
     PFObject * tempObj;
-    int row = indexPath.row;
+    //int row = indexPath.row;
+    
     //Populate cell with resultList if anything in searchBar
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
+    if (![self.searchDisplayController.searchBar.text isEqualToString:@""]) {
+        //If no results then let them know that this is not a suspected cheater
+        if (self.resultList.count == 0) {
+            customCell.customName.text = self.searchDisplayController.searchBar.text;
+            customCell.customRating.text = @"Is not a Suspected Cheater";
+            customCell.customAddEvidenceButton.hidden = NO;
+            [customCell.customAddEvidenceButton setTitle:@"Report" forState:UIControlStateNormal];
+            return customCell;
+        }
         tempObj = [self.resultList objectAtIndex:indexPath.row];
     }
     else{
@@ -153,14 +170,6 @@ int flag = 0;
     else if (score == 5){
         customCell.customRating.text = @"Known Cheater";
     }
-    //Hiding extra pictures
-    customCell.customRating.textColor = [UIColor grayColor];
-    customCell.customPicOne.image = nil;
-    customCell.customPicTwo.image = nil;
-    customCell.customPicThree.image = nil;
-
-    //Hiding buttons
-    customCell.customAddEvidenceButton.hidden = true;
     
     [self addExtraContentToCell:customCell indexPath:indexPath];
    // NSLog(@"%@%@%@", customCell.customName.text, [tempObj objectForKey:@"foo"],customCell.customRating.text); //Test for pull
@@ -177,15 +186,22 @@ int flag = 0;
     // been selected.
     
     //Get the cell in question
-    CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
+    CustomCell *customCell = [tableView cellForRowAtIndexPath:indexPath];
 
     if ([indexPath compare:self.expandedIndexPath] == NSOrderedSame) {
         #warning TODO: Add in animation for leaving cell?
         self.expandedIndexPath = nil;
         //Hiding extra pictures
         customCell.customRating.textColor = [UIColor grayColor];
-        [self hideContentFromCell:indexPath];
-    } else {
+        CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        customCell.customPicOne.image = nil;
+        customCell.customPicTwo.image = nil;
+        customCell.customPicThree.image = nil;
+        //Hiding buttons
+        customCell.customAddEvidenceButton.hidden = true;
+        customCell.customSeeEvidenceButton.hidden = true;
+    }
+    else {
         self.expandedIndexPath = indexPath;
         //Expanded Cell Assigning values - Testing fade, once array of pics is up on parse we can change this to a loop for the images
         [self addExtraContentToCell:customCell indexPath:indexPath];
@@ -195,18 +211,15 @@ int flag = 0;
     [self.tableView endUpdates]; // tell the table you're done making your changes
 }
 
-- (void)hideContentFromCell:(NSIndexPath *)indexPath {
+-(void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
     customCell.customPicOne.image = nil;
     customCell.customPicTwo.image = nil;
     customCell.customPicThree.image = nil;
     //Hiding buttons
     customCell.customAddEvidenceButton.hidden = true;
-}
-
--(void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self hideContentFromCell:indexPath];
+    customCell.customSeeEvidenceButton.hidden = true;
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -224,6 +237,10 @@ int flag = 0;
 - (void) filterContentForSearchText: (NSString *) searchText scope:(NSString *) scope{
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.foo beginswith[c] %@", searchText];
     self.resultList = [self.cheaterList filteredArrayUsingPredicate:predicate];
+    flag = 0;
+    NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
+    [tableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
+    [self.tableView reloadData];
 }
 
 - (BOOL) searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString{
@@ -231,18 +248,11 @@ int flag = 0;
     return YES;
 }
 
-#pragma Uploading Image for Existing Cheater
-
-- (IBAction)getPhoto:(id)sender {
-    picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-    [self presentViewController:picker animated:YES completion:NULL];
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    #warning TODO: Get the local array, add the image to it and push to parse
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
+    NSLog(@"User canceled search");
+    [searchBar resignFirstResponder];// if you want the keyboard to go away
+    self.searchDisplayController.searchBar.text = @"";
+    [self.tableView reloadData];
 }
 
 #pragma Cell Animations
@@ -276,8 +286,35 @@ int flag = 0;
     cell.alpha = 1;
     cell.layer.shadowOffset = CGSizeMake(0, 0);
     [UIView commitAnimations];
-    //[tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+}
+
+#pragma Segue Stuff
+- (IBAction)reportDoneButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:@"reportDonePush" sender:sender];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"reportDonePush"]) {
+        
+        // Get destination view
+        ReportPlayerController *vc = [segue destinationViewController];
+        
+        // Get name
+        NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
+        NSString *tagIndex;
+        if (selectedIndexPath == nil) {
+            tagIndex = self.searchDisplayController.searchBar.text;
+        }
+        else{
+            CustomCell *customCell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
+            tagIndex = customCell.customName.text;
+        }
+        
+        // Set the selected button in the new view
+        [vc setSelectedPlayerName:tagIndex];
+    }
 }
 
 @end

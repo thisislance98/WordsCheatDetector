@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400002061A6EE70B00F11508 /* ReportPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 400002051A6EE70B00F11508 /* ReportPlayerController.m */; };
 		402E19801A66F87C00A73B2C /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 402E197F1A66F87C00A73B2C /* CustomCell.m */; };
 		402E19851A671C8100A73B2C /* WWFtwo.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19821A671C8100A73B2C /* WWFtwo.png */; };
 		402E19861A671C8100A73B2C /* WWFthree.png in Resources */ = {isa = PBXBuildFile; fileRef = 402E19831A671C8100A73B2C /* WWFthree.png */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		400002041A6EE70B00F11508 /* ReportPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportPlayerController.h; sourceTree = "<group>"; };
+		400002051A6EE70B00F11508 /* ReportPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportPlayerController.m; sourceTree = "<group>"; };
 		402E197E1A66F87C00A73B2C /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
 		402E197F1A66F87C00A73B2C /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
 		402E19821A671C8100A73B2C /* WWFtwo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WWFtwo.png; sourceTree = "<group>"; };
@@ -162,6 +165,8 @@
 				402E197F1A66F87C00A73B2C /* CustomCell.m */,
 				40A3D75E1A64F49100B8F530 /* ViewController.h */,
 				40A3D75F1A64F49100B8F530 /* ViewController.m */,
+				400002041A6EE70B00F11508 /* ReportPlayerController.h */,
+				400002051A6EE70B00F11508 /* ReportPlayerController.m */,
 				40A3D7611A64F49200B8F530 /* Main.storyboard */,
 				40A3D7641A64F49200B8F530 /* Images.xcassets */,
 				40A3D7661A64F49200B8F530 /* LaunchScreen.xib */,
@@ -326,6 +331,7 @@
 			files = (
 				40A3D7601A64F49100B8F530 /* ViewController.m in Sources */,
 				40A3D75D1A64F49100B8F530 /* AppDelegate.m in Sources */,
+				400002061A6EE70B00F11508 /* ReportPlayerController.m in Sources */,
 				402E19801A66F87C00A73B2C /* CustomCell.m in Sources */,
 				40A3D75A1A64F49100B8F530 /* main.m in Sources */,
 			);

@@ -16,8 +16,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *customPicOne;
 @property (weak, nonatomic) IBOutlet UIImageView *customPicTwo;
 @property (weak, nonatomic) IBOutlet UIImageView *customPicThree;
+@property (weak, nonatomic) IBOutlet UIImageView *customPicFour;
 
 @property (weak, nonatomic) IBOutlet UIButton *customAddEvidenceButton;
+@property (weak, nonatomic) IBOutlet UIButton *customSeeEvidenceButton;
 
 
 @end

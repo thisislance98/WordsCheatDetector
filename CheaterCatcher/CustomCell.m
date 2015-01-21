@@ -31,8 +31,4 @@
     
 }
 
-- (IBAction)uploadPhoto:(id)sender {
-
-    
-}
 @end
