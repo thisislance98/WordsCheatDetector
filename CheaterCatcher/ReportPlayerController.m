@@ -17,6 +17,8 @@
 
 @synthesize SelectedPlayerName, SelectedPlayerObject;
 
+#warning TODO: still needs autolayout to be done before production
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -75,6 +77,7 @@
 - (IBAction)attachScreenshot:(id)sender {
     picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
+    //get image from the photo library since we are pushing screenshots
     [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [self presentViewController:picker animated:YES completion:NULL];
 }
@@ -167,6 +170,7 @@
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
+    //just display the image the user picked so he can make sure he picked the correct picture
     self.displayScreenShot.image = image;
     [self dismissModalViewControllerAnimated:YES];
 }

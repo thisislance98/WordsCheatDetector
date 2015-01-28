@@ -11,6 +11,7 @@
 
 @interface ReportPlayerController : UIViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
     UIImagePickerController *picker;
+    //for passing data between segues
     NSString *SelectedPlayerName;
     PFObject *SelectedPlayerObject;
 }

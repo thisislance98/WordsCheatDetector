@@ -54,7 +54,9 @@ int flag = 0;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    //If searching go into here
     if (![self.searchDisplayController.searchBar.text isEqualToString:@""]) {
+        //if the results actually return nothing then send back one row to use for letting the user know that this person is not a known cheater and so that he can be reported
         if (self.resultList.count == 0) {
             return 1;
         }
@@ -67,8 +69,9 @@ int flag = 0;
     }
 }
 
-#warning TODO: REFACTOR
+#warning TODO: REFACTOR - Make images clickable - Once parse photos are up make sure to pull distinct photos pertaining to the exact player
 - (void)addExtraContentToCell:(CustomCell *)customCell indexPath:(NSIndexPath *)indexPath {
+    //testing code to have little thumbnails in cell
     if (self.expandedIndexPath.row == indexPath.row && flag == 1) {
         NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"WWFthree" ofType:@"png"];
         UIImage *myImageObj = [[UIImage alloc] initWithContentsOfFile:imagePath];
@@ -213,7 +216,11 @@ int flag = 0;
     [self.tableView endUpdates]; // tell the table you're done making your changes
 }
 
+#warning TODO: Found bug where the row in sorted list does not deselect or expand the actual line when you expand the cell
+
 -(void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //if deselecting set all thumbnails to nil and hide extra content
+    //might be better idea to hide the pictures instead of setting them to nil so if the user goes back to the last cell the photos won't have to be pulled but will already be there
     CustomCell *customCell = [self.tableView cellForRowAtIndexPath:indexPath];
     customCell.customPicOne.image = nil;
     customCell.customPicTwo.image = nil;
@@ -237,9 +244,13 @@ int flag = 0;
 #pragma Search Results
 
 - (void) filterContentForSearchText: (NSString *) searchText scope:(NSString *) scope{
+    //if words begin with the searched text
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.foo beginswith[c] %@", searchText];
+    //copy those objects that start with the searched text into the results array
     self.resultList = [self.cheaterList filteredArrayUsingPredicate:predicate];
+    //set flag to zero so the first cell doesn't expand right away when reloading
     flag = 0;
+    //deselect any rows before reloading just in case so a row won't be selected when you display your searched results
     NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
     [tableView deselectRowAtIndexPath:selectedIndexPath animated:NO];
     [self.tableView reloadData];
@@ -253,6 +264,7 @@ int flag = 0;
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar {
     NSLog(@"User canceled search");
     [searchBar resignFirstResponder];// if you want the keyboard to go away
+    //change searchbar text and reload data so it loads the regular list
     self.searchDisplayController.searchBar.text = @"";
     [self.tableView reloadData];
 }
@@ -303,22 +315,27 @@ int flag = 0;
         // Get destination view
         ReportPlayerController *vc = [segue destinationViewController];
         
-        // Get name
+        // Get name and object
         NSIndexPath *selectedIndexPath = [tableView indexPathForSelectedRow];
         NSString *tagIndex;
         PFObject *thisObjectPF;
+        //If selected index is nil then that means this is a new cheater so read in the name from the searchbar
         if (selectedIndexPath == nil) {
             tagIndex = self.searchDisplayController.searchBar.text;
         }
         else{
+            //else get it from the selected cell
             CustomCell *customCell = [self.tableView cellForRowAtIndexPath:selectedIndexPath];
             tagIndex = customCell.customName.text;
+            //if this selected value is from the regular list then grab the object from the regular list
             if ([self.searchDisplayController.searchBar.text isEqualToString:@""]) {
                 thisObjectPF = [self.cheaterList objectAtIndex:selectedIndexPath.row];
             }
+            //if if this selected value is from the results list then grab the object from the results list
             else if (self.resultList.count != 0){
                 thisObjectPF = [self.resultList objectAtIndex:selectedIndexPath.row];
             }
+            //else send in a nil object which will be checked and caught in the next view controller
             else{
                 thisObjectPF = nil;
             }
